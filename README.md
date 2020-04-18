@@ -40,7 +40,7 @@ sdhand[s]: to be filling for the outer 2 pieces of bread
 It will only translate messages from specified channels and users, so you don't need to worry about it interfering with non-bridged IRC channels. It also doesn't affect the `log` module so your IRC logs will also be unaffected.
 
 ## Installation
-Installed as any other ZNC module. Requires [modpython] to be loaded
+Installed [as any other](https://wiki.znc.in/Modules#Managing_Modules) ZNC module. Requires [modpython] to be loaded
 
 1. Copy `arnie.py` to the `modules` directory of your ZNC installation
 2. Run `/msg *status loadmod arnie` to load the module
@@ -48,3 +48,6 @@ Installed as any other ZNC module. Requires [modpython] to be loaded
 
 ## Usage
 Full command help text is available by sending `help` to `*arnie`.
+
+[ZNC]: https://wiki.znc.in/ZNC "ZNC Wiki"
+[modpython]: https://wiki.znc.in/Modpython "modpython - ZNC Wiki"
