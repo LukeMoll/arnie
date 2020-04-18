@@ -106,10 +106,29 @@ class arnie(znc.Module):
         return True
 
     usage = {
-        "channels": "todo",
-        "nicks": "todo",
-        "suffix": "todo",
-        "prefix": "todo"
+"channels": 
+"""(chan for short)
+channels add <channels>:    Adds all of <channels> (space separated) to the channel whitelist. Arnie will only translate messages sent in channels from the channel whitelist. Channels must be preceeded by a #.
+channels remove <channels>:    Removes all of <channels> from the whitelist.
+channels clear:    Removes all channels from the whitelist. No messages will be translated if the whitelist is empty.
+""",
+"nicks": 
+"""(nick for short)
+nicks add <nicks>:    Adds all of <nicks> (space separated) to the nick whitelist. Arnie will only translate messages sent by bots in the nick whitelist.
+nicks remove <nicks>:    Removes all of <nicks> from the whitelist.
+nicks clear:    Removes all nicks from the whitelist. No messages will be translated if the whitelist is empty.
+""",
+"prefix":
+"""Appears before the username of the bridged user.
+prefix set <prefix>:    Sets the prefix.
+prefix clear:    Clears the prefix.
+""",
+"suffix": 
+"""Appears after the username of the bridged user.
+suffix set <suffix>:    Sets the suffix.
+suffix clear:    Clears the suffix.
+""",
+"status": "Shows information about Arnie (takes no arguments)."
     }
 
     # Helper functions
