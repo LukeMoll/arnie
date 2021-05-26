@@ -1,5 +1,5 @@
 import re
-import znc
+import znc # type: ignore[import]
 import traceback
 
 class arnie(znc.Module):
@@ -35,8 +35,12 @@ class arnie(znc.Module):
         try:
             command = command.lower()
             tokens = re.split(r"\s", command)
-            if tokens[0] == "chan" or tokens[0] =="channels":
-                if tokens[1] == "clear":
+            cmd_name = tokens[0]
+            if cmd_name == "chan" or cmd_name =="channels":
+                if len(tokens) < 2:
+                    self.PutModule(self.usage["channels"])
+                    return True
+                elif tokens[1] == "clear":
                     self.clear_channels()
                     return True
                 # else:
@@ -47,8 +51,12 @@ class arnie(znc.Module):
                     self.remove_channels(params)
                 else:
                     self.PutModule(self.usage["channels"])
-            elif tokens[0] == "nick" or tokens[0] == "nicks":
-                if tokens[1] == "clear":
+
+            elif cmd_name == "nick" or cmd_name == "nicks":
+                if len(tokens) < 2:
+                    self.PutModule(self.usage["nicks"])
+                    return True
+                elif tokens[1] == "clear":
                     self.clear_nicks()
                     return True
                 # else:
@@ -59,21 +67,30 @@ class arnie(znc.Module):
                     self.remove_nicks(params)
                 else:
                     self.PutModule(self.usage["nicks"])
-            elif tokens[0] == "suffix":
-                if tokens[1] == "set":
+
+            elif cmd_name == "suffix":
+                if len(tokens) < 2:
+                    self.PutModule(self.usage["suffix"])
+                    return True
+                elif tokens[1] == "set":
                     self.set_suffix(" ".join(tokens[2:]))
                 elif tokens[1] == "clear":
                     self.set_suffix("")
                 else:
                     self.PutModule(self.usage["suffix"])
-            elif tokens[0] == "prefix":
-                if tokens[1] == "set":
+
+            elif cmd_name == "prefix":
+                if len(tokens) < 2:
+                    self.PutModule(self.usage["prefix"])
+                    return True
+                elif tokens[1] == "set":
                     self.set_prefix(" ".join(tokens[2:]))
                 elif tokens[1] == "clear":
                     self.set_prefix("")
                 else:
                     self.PutModule(self.usage["prefix"])
-            elif tokens[0] == "status":
+
+            elif cmd_name == "status":
                 self.PutModule(
                     "Prefix: {}".format(self.get_prefix())
                     if len(self.get_prefix()) > 0
@@ -88,7 +105,8 @@ class arnie(znc.Module):
                 self.PutModule(", ".join(self.channels))
                 self.PutModule("and sent by:")
                 self.PutModule(", ".join(self.nicks))
-            elif tokens[0] == "help":
+
+            elif cmd_name == "help":
                 if len(tokens) == 1:
                     self.PutModule("Available commands:")
                     self.PutModule(", ".join(self.usage.keys()))
@@ -97,6 +115,7 @@ class arnie(znc.Module):
                     self.PutModule(self.usage[tokens[1]])
                 else:
                     self.PutModule("No such command {}.".format(tokens[1]))
+
             else:
                 self.PutModule("No such command!")
             return True
